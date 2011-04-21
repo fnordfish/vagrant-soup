@@ -1,6 +1,6 @@
-[submodule "vagrant_project/opscode-cookbooks"]
-	path = vagrant_project/opscode-cookbooks
+[submodule "opscode-cookbooks"]
+	path = opscode-cookbooks
 	url = git://github.com/opscode/cookbooks.git
-[submodule "vagrant_project/cookbooks/rvm"]
-	path = vagrant_project/cookbooks/rvm
+[submodule "cookbooks/rvm"]
+	path = cookbooks/rvm
 	url = git://github.com/fnichol/chef-rvm.git
