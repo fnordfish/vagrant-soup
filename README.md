@@ -15,9 +15,9 @@ Usage
 What you need
 ==================
 
-[vagrant](http://vagrantup.com) 0.7.2
-[VirtualBox](http://www.virtualbox.org/wiki/Downloads) 4.0.4
-[The vagrant base box](http://download.dotless.de/vagrant/lucid64_4.0.4.box) will be download automatically 
+* [vagrant](http://vagrantup.com) 0.7.2
+* [VirtualBox](http://www.virtualbox.org/wiki/Downloads) 4.0.4
+* [The vagrant base box](http://download.dotless.de/vagrant/lucid64_4.0.4.box) will be download automatically 
 
 Third-Party stuff
 ==================
