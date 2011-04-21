@@ -6,7 +6,11 @@ Introduction
 Usage
 ==================
 
-1. `git clone`
+1. `git clone git://github.com/fnordfish/vagrant-soup.git my_new_vagrant_project`
+2. cd my_new_vagrant_project
+3. Edit the `Vagrantfile` to match your needs (e.g. add or remove a role and/or recipes)
+4. `vagrant up`
+5. enjoy
 
 What you need
 ==================
