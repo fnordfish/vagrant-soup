@@ -1,14 +1,10 @@
-name "ruby_rvm"
-description "Example base role for a RVM / ruby development setup. Set ups a NFS-Server as well."
+name "ruby_devel"
+description "Set up a Ruby-Development-Server based on RVM."
 
 run_list(
-  "recipe[apt]",
-  "recipe[git]",
-  "recipe[subversion]",
-  "recipe[nfs::server]",
+  "role[default]",
   "recipe[rvm]"
 )
-
 
 default_attributes(
   :rvm => {
@@ -25,11 +21,4 @@ default_attributes(
     },
     :group_users => [ "vagrant" ]
   },
-  
-  :nfs => {
-    :exports => {
-      '/home/vagrant' => { :nfs_options => '192.168.0.0/16(anonuid=1000,anongid=1000,no_subtree_check,rw,insecure,all_squash)' }
-    }
-  }
-  
 )
