@@ -36,8 +36,8 @@ Vagrant::Config.run do |config|
     chef.cookbooks_path = ["cookbooks", "opscode-cookbooks"]
     chef.roles_path = "roles"
     
-    # add the ruby_rvm role
-    chef.add_role("ruby_rvm")
+    # add the default role to get more basics
+    chef.add_role("default")
 
     # add more recipes, e.g. some database
     [
