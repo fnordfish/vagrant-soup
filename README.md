@@ -12,6 +12,38 @@ Usage
 4. `vagrant up`
 5. enjoy
 
+Adding Cookbooks
+------------------
+
+Simply put your new Cookbook into the `cookbooks` path and `chef.add_recipe("new_one")` within the `config.vm.provision`-block of your `Vagrantfile`.
+
+Downloading Cookbooks from the [Chef Community](http://community.opscode.com/) is fairly simple and described in the [Opscode Wiki - Working with Git and Cookbooks](http://wiki.opscode.com/display/chef/Working+with+Git+and+Cookbooks#WorkingwithGitandCookbooks-DownloadCookbook).
+
+In short: Say you want to install `couchdb`
+
+``` shell
+knife cookbook site vendor "couchdb" -d -o $PWD/cookbooks
+```
+
+The `knife` command comes with the `chef` gem. So you may need to `gem install chef` on your local machine.
+
+A good overview of available Cookbooks by Opscode may be found in their [github repository](https://github.com/opscode/cookbooks). However, it is not recommended by Opscode to simply include all Cookbooks. Doing so may lead into strange errors regarding not even used Cookbooks.
+
+Roles
+==================
+
+My Roles combines Cookbooks and configurations to provide a basic setup for development machines.
+
+All of them include the `default` Role, which makes developing on the "remote-vm" easier. Basically it includes `git` and `subversion` so we can fetch remote sources and an `nfs-server` to get a fast remote connection into the VM.
+
+Available Roles
+------------------
+
+* `default` : `git`, `subversion`, `nfs::server`
+* `ruby_devel` : `rvm`
+
+
+
 What you need
 ==================
 
