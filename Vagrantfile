@@ -33,7 +33,7 @@ Vagrant::Config.run do |config|
     chef.log_level = :debug
     
     # This path will be expanded relative to the project directory
-    chef.cookbooks_path = ["cookbooks", "opscode-cookbooks"]
+    chef.cookbooks_path = ["cookbooks"]
     chef.roles_path = "roles"
     
     # add the default role to get more basics
