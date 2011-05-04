@@ -20,5 +20,5 @@ default_attributes(
       'rvm_trust_rvmrcs_flag'         => 1
     },
     :group_users => [ "vagrant" ]
-  },
+  }
 )
