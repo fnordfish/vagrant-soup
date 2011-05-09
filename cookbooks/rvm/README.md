@@ -14,6 +14,26 @@ TBD
 
 # RECIPES
 
+## default
+
+Installs RVM system-wide, builds RVM Rubies, sets a default Ruby, installs
+any gems and global gems. **Note** that the `system` recipe is included to
+install RVM.
+
+## system
+
+Installs any package dependencies and installs RVM system-wide.
+
+## vagrant
+
+An optional recipe if Chef is installed in a non-RVM Ruby in a
+[Vagrant](http://vagrantup.com) virtual machine. This recipe adds the
+default vagrant user to the RVM unix group and installs a `chef-solo`
+wrapper script so Chef doesn't need to be re-installed in the default
+RVM Ruby.
+
+# USAGE
+
 # ATTRIBUTES
 
 ## `default_ruby`
@@ -131,6 +151,11 @@ The URL that provides the RVM installer. The default is
 A list of users that will be added to the `rvm` group. These users
 will then be able to manage RVM in a system-wide installation. The default
 is an empty list.
+
+## `vagrant/system_chef_solo`
+
+If using the `vagrant` recipe, this sets the path to the package-installed
+`chef-solo` binary. The default is `/usr/bin/chef-solo`.
 
 # RESOURCES AND PROVIDERS
 
@@ -289,8 +314,11 @@ usage.
     end
 
 ## rvm_gem
-This resource is a wrapper for the `gem_package` provider/resource which
-hijacks the `gem_binary` attribute to be RVM-aware. See the Opscode [package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package) and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions) pages for more details.
+This resource is a close analog to the `gem_package` provider/resource which
+is RVM-aware. See the Opscode
+[package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
+and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions)
+pages for more details.
 
 ### Actions
 
@@ -305,9 +333,8 @@ purge     |Purge a gem.|
 
 Attribute   |Description |Default value
 ------------|------------|-------------
-gem         |**Name Attribute:** the name of the gem to install.|`nil`
+package_name |**Name Attribute:** the name of the gem to install.|`nil`
 ruby_string |A fully qualified RVM ruby string that could contain a gemset. See the section *RVM Ruby Strings* for more details. If a gemset is given (for example, `ruby-1.8.7-p330@awesome`), then it will be used. |`default`
-global      |If true then the `ruby_string` attribute gets ignored and gem is installed/upgraded in the *global* gemset across all RVM rubies. An entry will also be made/removed in RVM's *global.gems* file. |`false`
 version     |The specific version of the gem to install/upgrade. |`nil`
 options     |Add additional options to the underlying gem command. |`nil`
 source      |Provide an additional source for gem providers (such as rubygems). |`nil`
@@ -350,6 +377,33 @@ is given.
       version     "1.4.4.2"
       action      :remove
     end
+
+## rvm_global_gem
+This resource will use the `rvm_gem` resource to manage a gem in the *global*
+gemset accross all RVM rubies. An entry will also be made/removed in RVM's
+*global.gems* file. See the Opscode
+[package resource](http://wiki.opscode.com/display/chef/Resources#Resources-Package)
+and [gem package options](http://wiki.opscode.com/display/chef/Resources#Resources-GemPackageOptions)
+pages for more details.
+
+### Actions
+
+Action    |Description                   |Default
+----------|------------------------------|-------
+install   |Install a gem across all rubies - if version is provided, install that specific version. |Yes
+upgrade   |Upgrade a gem across all rubies - if version is provided, upgrade to that specific version.|
+remove    |Remove a gem across all rubies.|
+purge     |Purge a gem across all rubies.|
+
+### Attributes
+
+Attribute   |Description |Default value
+------------|------------|-------------
+package_name |**Name Attribute:** the name of the gem to install.|`nil`
+version     |The specific version of the gem to install/upgrade. |`nil`
+options     |Add additional options to the underlying gem command. |`nil`
+source      |Provide an additional source for gem providers (such as rubygems). |`nil`
+gem_binary  |A gem_package attribute to specify a gem binary. |`gem`
 
 ## rvm_shell
 This resource is a wrapper for the `script` resource which wraps the code block
@@ -437,8 +491,6 @@ under `node[:rvm][:root_path]`.
       binaries      [ "rspec", "cucumber" ]
       action        :create
     end
-
-# USAGE
 
 # LICENSE and AUTHOR
 
