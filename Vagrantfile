@@ -4,18 +4,18 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "lucid64_4.0.4"
+  config.vm.box = "lucid64_406"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://download.dotless.de/vagrant/lucid64_404.box"
+  config.vm.box_url = "http://download.dotless.de/vagrant/lucid64_406.box"
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
 
   # Assign this VM to a host only network IP, allowing you to access it
   # via the IP.
-  config.vm.network "192.168.128.10"
+  config.vm.network "10.0.5.1"
 
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
