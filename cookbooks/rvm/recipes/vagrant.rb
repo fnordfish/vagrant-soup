@@ -1,8 +1,6 @@
 #
 # Cookbook Name:: rvm
-# Resource:: gem
-#
-# Author:: Fletcher Nichol <fnichol@nichol.ca>
+# Recipe:: vagrant
 #
 # Copyright 2011, Fletcher Nichol
 #
@@ -19,18 +17,14 @@
 # limitations under the License.
 #
 
-actions :install, :upgrade, :remove, :purge
+template "/usr/local/bin/chef-solo" do
+  source    "vagrant-chef-solo-wrapper.erb"
+  owner     "root"
+  group     "root"
+  mode      "0755"
+end
 
-attribute :package_name,  :kind_of => String, :name_attribute => true
-attribute :version,       :kind_of => String
-attribute :ruby_string,   :kind_of => String, :default => "default"
-attribute :response_file, :kind_of => String
-attribute :source,        :kind_of => String
-attribute :options,       :kind_of => Hash
-attribute :gem_binary,    :kind_of => String
-
-def initialize(*args)
-  super
-  @action = :install
-  @provider = Chef::Provider::Package::RVMRubygems
+group "rvm" do
+  members ["vagrant"]
+  append  true
 end
